@@ -134,12 +134,14 @@ google-maps-scraper-kit/
 ├── scripts/
 │   ├── scrape.sh        ← one-shot bash scraper (single keyword)
 │   ├── scrape.py        ← Python scraper: single, batch, + auto-geocoding (stdlib only)
-│   └── to_sheets.py     ← push results to Google Sheets (stdlib only)
+│   ├── to_sheets.py     ← push results to Google Sheets (stdlib only)
+│   └── scrape_places.py ← one search across many towns (e.g. whole UK), resumable
 ├── sheets/
 │   └── apps-script.gs   ← paste into your Google Sheet (Extensions → Apps Script)
 ├── examples/
 │   ├── queries.example.json   ← reference job body + coordinate cheatsheet
-│   └── queries.example.txt    ← batch keyword list (one per line)
+│   ├── queries.example.txt    ← batch keyword list (one per line)
+│   └── uk-places.txt          ← ~220 UK towns / London boroughs / city districts
 └── .claude/
     ├── settings.json    ← pre-approves local commands so Claude runs on autopilot
     ├── commands/        ← /scrape, /scrape-batch, /scrape-setup, /scrape-jobs

@@ -90,6 +90,13 @@ outreach), `link`, `plus_code`, `cid`, `data_id`, `place_id`, `open_hours`, `pop
 JSON). If you call the API directly, **strip to the lead fields yourself** before presenting — never dump the
 full 34-column row at the user.
 
+### Whole country / region ("all X in the UK")
+One search caps at ~120 results, so never try one giant query. Use
+`python3 scripts/scrape_places.py <places-file> --terms "a,b,c" --country "<country>" --out-dir out/<name> [--sheet "<tab>"] [-- --no-email]`
+(`examples/uk-places.txt` covers the UK). It is resumable (re-run the same command), stops after 3 failures in a
+row, and merges to `out/<name>/all.csv`. This takes many hours — run it in the background, warn once about rate
+limits/proxies, and suggest `--no-email` (much faster) plus `--limit N` to do it in chunks.
+
 ### Google Sheets export (when the user asks for it)
 If the user wants results in Google Sheets, add `--sheet` (or `--sheet "<tab name>"`) to `scripts/scrape.py`,
 or push an existing file with `python3 scripts/to_sheets.py <results.csv> --tab "<tab>"`. It needs
