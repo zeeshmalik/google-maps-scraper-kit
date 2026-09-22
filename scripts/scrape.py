@@ -10,6 +10,9 @@ Auto-geocode (no coordinates needed):
 Batch (one job, many keywords) from a file (one keyword per line):
     python3 scripts/scrape.py --keywords-file examples/queries.example.txt --city "Denver, CO"
 
+Send results straight to Google Sheets (one-time setup: SETUP.md → "Export to Google Sheets"):
+    python3 scripts/scrape.py "cafes in Austin TX" --city "Austin, TX" --sheet
+
 Notes:
 - Required by the API: keywords, lat/lon (strings), max_time (SECONDS). This script fills them in.
 - Geocoding uses OpenStreetMap Nominatim (free, no key). Please be gentle: it allows ~1 request/sec
@@ -144,6 +147,8 @@ def main():
     ap.add_argument("--fields", help="comma-separated columns to keep (overrides the default lead set)")
     ap.add_argument("--socials", action="store_true",
                     help="also find Instagram/Facebook/LinkedIn from each website (0 LLM tokens; slower)")
+    ap.add_argument("--sheet", nargs="?", const="Leads", metavar="TAB",
+                    help="also append the results to Google Sheets (optional tab name, default 'Leads')")
     a = ap.parse_args()
 
     keywords = collect_keywords(a)
@@ -239,6 +244,17 @@ def main():
             w.writeheader()
             w.writerows(results)
     print(f"  saved → {out}")
+
+    if a.sheet:
+        from to_sheets import push_rows  # same folder; stdlib only
+        print(f"▶ Sending to Google Sheets (tab \"{a.sheet}\")…")
+        try:
+            added, skipped, url = push_rows(fields, results, tab=a.sheet)
+            print(f"  ✓ added {added} rows" + (f", skipped {skipped} duplicates" if skipped else "")
+                  + (f" → {url}" if url else ""))
+        except Exception as e:  # the CSV is already saved; retry later with scripts/to_sheets.py
+            print(f"  ✗ Sheets export failed: {e}\n    Retry: python3 scripts/to_sheets.py {out} "
+                  f"--tab \"{a.sheet}\"", file=sys.stderr)
     for r in results[:5]:
         tail = f" | IG:{r.get('instagram','') or '—'}" if a.socials else f" | {r.get('website','')}"
         print(f"  • {r.get('title','')} | {r.get('phone','')} | {r.get('emails','')}{tail}")

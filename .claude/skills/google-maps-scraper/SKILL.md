@@ -90,6 +90,14 @@ outreach), `link`, `plus_code`, `cid`, `data_id`, `place_id`, `open_hours`, `pop
 JSON). If you call the API directly, **strip to the lead fields yourself** before presenting — never dump the
 full 34-column row at the user.
 
+### Google Sheets export (when the user asks for it)
+If the user wants results in Google Sheets, add `--sheet` (or `--sheet "<tab name>"`) to `scripts/scrape.py`,
+or push an existing file with `python3 scripts/to_sheets.py <results.csv> --tab "<tab>"`. It needs
+`SHEETS_WEBHOOK_URL` + `SHEETS_SECRET` in `.env`; if they're missing, walk the user through
+SETUP.md → "Export to Google Sheets" (they must do the Apps Script deploy themselves in their browser —
+you can't). Rows are appended and duplicates (same title + address) are skipped. Never print `SHEETS_SECRET`
+into chat. If the export fails, the CSV is still saved — tell the user the retry command the script prints.
+
 ### Social profiles — ALWAYS ASK the user (Instagram / Facebook / LinkedIn)
 Google Maps has no social links, so this is an enrichment: visit each business's `website` and regex out its
 IG/FB/LinkedIn URLs. **Before scraping, ask the user once** whether they want socials too (unless they already

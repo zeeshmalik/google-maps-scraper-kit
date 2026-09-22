@@ -100,6 +100,41 @@ python3 scripts/scrape.py "cafes in Austin TX" --city "Austin, TX" --depth 5
 python3 scripts/scrape.py --keywords-file examples/queries.example.txt --city "Denver, CO"
 ```
 
+### Export to Google Sheets (optional, free)
+
+Every scrape already saves a CSV you can open with **File → Import** in Google Sheets. If you'd rather
+have results go **straight into a sheet**, do this one-time setup (about 3 minutes, no Google Cloud
+project or API key needed):
+
+1. Create a Google Sheet (or open an existing one) → **Extensions → Apps Script**.
+2. Delete the placeholder code and paste in everything from [`sheets/apps-script.gs`](sheets/apps-script.gs).
+3. Change `var SECRET = 'change-me';` to a long random string (e.g. from `python3 -c "import secrets; print(secrets.token_urlsafe(24))"`). Save.
+4. **Deploy → New deployment** → type **Web app** → *Execute as:* **Me**, *Who has access:* **Anyone** → **Deploy**.
+   Approve the permission prompt (it only asks to edit this one spreadsheet). Copy the **Web app URL** (ends in `/exec`).
+5. Put both values in your `.env` (`cp .env.example .env` if you haven't):
+   ```
+   SHEETS_WEBHOOK_URL=https://script.google.com/macros/s/XXXX/exec
+   SHEETS_SECRET=<the same secret as step 3>
+   ```
+
+Now add `--sheet` (optionally with a tab name) to any scrape:
+```bash
+python3 scripts/scrape.py "dentists in Austin TX" --city "Austin, TX" --sheet
+python3 scripts/scrape.py "gyms in Miami FL" --city "Miami, FL" --sheet "Miami gyms"
+```
+…or push a CSV you already have:
+```bash
+python3 scripts/to_sheets.py results-1a2b3c4d.csv --tab "Austin dentists"
+```
+
+- Rows are **appended**; the tab and header row are created automatically.
+- Businesses already in the tab (same name + address) are **skipped**, so re-running a search only adds
+  new leads. Use `to_sheets.py --no-dedupe` to turn that off.
+- Values are stored as plain text, so phone numbers like `+1 512…` aren't turned into formulas.
+- Keep the URL + secret private: anyone with both can add rows to that sheet. If they leak, change
+  `SECRET`, then **Deploy → Manage deployments → Edit → New version**.
+- Changed the script? Redeploy (**Manage deployments → Edit → Version: New version**) or the old code keeps running.
+
 ---
 
 ## 4. Use it with Claude (the autopilot way) 🤖

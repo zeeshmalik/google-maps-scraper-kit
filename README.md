@@ -27,6 +27,7 @@ ready-to-run scripts, and a **Claude skill** so Claude knows exactly how to use 
 - 🐳 **One-command local setup** — `docker compose up -d` runs the scraper at `http://localhost:8080`.
 - 🤖 **A Claude skill** — open this folder in Claude Code and just say *"scrape coffee shops in Austin"*. Claude does create → poll → download → clean results, following best practices automatically.
 - 🛠️ **Standalone scripts** — `scripts/scrape.sh` (bash) and `scripts/scrape.py` (Python, no dependencies) if you'd rather not use Claude.
+- 📊 **Google Sheets export (free)** — add `--sheet` and results go straight into your Google Sheet, with duplicates skipped. One-time 3-minute setup, no API key: see [SETUP.md → Export to Google Sheets](SETUP.md#export-to-google-sheets-optional-free).
 - 🔒 **Safe by default** — the scraper binds to `127.0.0.1` only, secrets are git-ignored, and the skill enforces rate-limit / legal / data-handling guardrails.
 
 ## What it scrapes (and what it doesn't)
@@ -132,7 +133,10 @@ google-maps-scraper-kit/
 ├── .gitignore
 ├── scripts/
 │   ├── scrape.sh        ← one-shot bash scraper (single keyword)
-│   └── scrape.py        ← Python scraper: single, batch, + auto-geocoding (stdlib only)
+│   ├── scrape.py        ← Python scraper: single, batch, + auto-geocoding (stdlib only)
+│   └── to_sheets.py     ← push results to Google Sheets (stdlib only)
+├── sheets/
+│   └── apps-script.gs   ← paste into your Google Sheet (Extensions → Apps Script)
 ├── examples/
 │   ├── queries.example.json   ← reference job body + coordinate cheatsheet
 │   └── queries.example.txt    ← batch keyword list (one per line)
