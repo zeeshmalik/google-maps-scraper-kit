@@ -14,7 +14,8 @@
       "Bash(./scripts/scrape.sh:*)",
       "Bash(bash scripts/scrape.sh:*)",
       "Bash(python3 scripts/scrape.py:*)",
-      "Bash(python scripts/scrape.py:*)"
+      "Bash(python scripts/scrape.py:*)",
+      "Bash(python3 scripts/scrape_places.py:*)"
     ],
     "deny": []
   }

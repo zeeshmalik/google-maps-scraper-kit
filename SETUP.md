@@ -100,6 +100,18 @@ python3 scripts/scrape.py "cafes in Austin TX" --city "Austin, TX" --depth 5
 python3 scripts/scrape.py --keywords-file examples/queries.example.txt --city "Denver, CO"
 ```
 
+**Scrape a whole country or region** (e.g. every UK grocery store). Google Maps shows at most ~120
+results per search, so this runs one job per town/borough (resumable — re-run the same command to continue):
+```bash
+python3 scripts/scrape_places.py examples/uk-places.txt \
+    --terms "supermarket,grocery store,convenience store" --country "UK" \
+    --out-dir out/uk-grocery --sheet "UK grocery" -- --no-email
+```
+Per-place CSVs go to `out/uk-grocery/places/`, and everything is merged (duplicates removed) into
+`out/uk-grocery/all.csv`. Use `--limit 10` to do it in chunks. It pauses 30s between places and
+stops after 3 failures in a row (a sign of rate-limiting) — wait, then re-run. Edit the places file to add
+towns or split big cities into districts for better coverage.
+
 ### Export to Google Sheets (optional, free)
 
 Every scrape already saves a CSV you can open with **File → Import** in Google Sheets. If you'd rather

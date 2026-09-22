@@ -1,0 +1,237 @@
+# UK places for scripts/scrape_places.py — one search area per line (lines starting with # are skipped).
+# Google Maps caps each search at ~120 results, so dense areas are split into boroughs/districts.
+# For even better coverage, add more towns or split more cities into districts.
+
+# ── London (32 boroughs + the City) ──
+City of London
+Barking and Dagenham
+Barnet
+Bexley
+Brent
+Bromley
+Camden
+Croydon
+Ealing
+Enfield
+Greenwich
+Hackney
+Hammersmith and Fulham
+Haringey
+Harrow
+Havering
+Hillingdon
+Hounslow
+Islington
+Kensington and Chelsea
+Kingston upon Thames
+Lambeth
+Lewisham
+Merton
+Newham
+Redbridge
+Richmond upon Thames
+Southwark
+Sutton
+Tower Hamlets
+Waltham Forest
+Wandsworth
+Westminster
+
+# ── Big cities, split into districts ──
+Birmingham City Centre
+Edgbaston, Birmingham
+Erdington, Birmingham
+Hall Green, Birmingham
+Handsworth, Birmingham
+Northfield, Birmingham
+Sparkhill, Birmingham
+Sutton Coldfield
+Yardley, Birmingham
+Manchester City Centre
+Didsbury, Manchester
+Longsight, Manchester
+Moss Side, Manchester
+Salford
+Stockport
+Oldham
+Rochdale
+Bolton
+Bury
+Wigan
+Trafford
+Tameside
+Leeds City Centre
+Headingley, Leeds
+Harehills, Leeds
+Beeston, Leeds
+Morley
+Glasgow City Centre
+Govan, Glasgow
+Partick, Glasgow
+Shawlands, Glasgow
+Springburn, Glasgow
+Liverpool City Centre
+Anfield, Liverpool
+Wavertree, Liverpool
+Bootle
+Birkenhead
+Sheffield City Centre
+Hillsborough, Sheffield
+Sharrow, Sheffield
+Bradford City Centre
+Keighley
+
+# ── England ──
+Newcastle upon Tyne
+Gateshead
+Sunderland
+South Shields
+Middlesbrough
+Stockton-on-Tees
+Hartlepool
+Darlington
+Durham
+Carlisle
+York
+Hull
+Scarborough
+Harrogate
+Huddersfield
+Halifax
+Wakefield
+Doncaster
+Rotherham
+Barnsley
+Blackpool
+Preston
+Blackburn
+Burnley
+Lancaster
+Warrington
+Chester
+Crewe
+Stoke-on-Trent
+Derby
+Nottingham
+Mansfield
+Leicester
+Loughborough
+Lincoln
+Grimsby
+Peterborough
+Northampton
+Coventry
+Wolverhampton
+Walsall
+West Bromwich
+Dudley
+Solihull
+Worcester
+Hereford
+Telford
+Shrewsbury
+Stafford
+Burton upon Trent
+Nuneaton
+Rugby
+Leamington Spa
+Oxford
+Banbury
+Milton Keynes
+Luton
+Bedford
+Cambridge
+Norwich
+Ipswich
+Colchester
+Chelmsford
+Southend-on-Sea
+Basildon
+Watford
+St Albans
+Stevenage
+Hemel Hempstead
+Harlow
+Slough
+Reading
+Bracknell
+High Wycombe
+Aylesbury
+Swindon
+Bath
+Bristol City Centre
+Horfield, Bristol
+Bedminster, Bristol
+Gloucester
+Cheltenham
+Exeter
+Plymouth
+Torquay
+Truro
+Taunton
+Yeovil
+Bournemouth
+Poole
+Salisbury
+Southampton
+Portsmouth
+Winchester
+Basingstoke
+Guildford
+Woking
+Crawley
+Brighton
+Eastbourne
+Hastings
+Worthing
+Maidstone
+Canterbury
+Ashford
+Chatham, Kent
+Dartford
+Margate
+
+# ── Scotland ──
+Edinburgh City Centre
+Leith, Edinburgh
+Aberdeen
+Dundee
+Inverness
+Perth, Scotland
+Stirling
+Paisley
+East Kilbride
+Hamilton, South Lanarkshire
+Motherwell
+Kilmarnock
+Ayr
+Dumfries
+Falkirk
+Livingston
+Dunfermline
+Kirkcaldy
+
+# ── Wales ──
+Cardiff City Centre
+Llanishen, Cardiff
+Swansea
+Newport, Wales
+Wrexham
+Barry, Vale of Glamorgan
+Bridgend
+Merthyr Tydfil
+Llanelli
+Aberystwyth
+Bangor, Gwynedd
+
+# ── Northern Ireland ──
+Belfast City Centre
+Ballyhackamore, Belfast
+Falls Road, Belfast
+Derry
+Lisburn
+Newry
+Bangor, County Down
+Ballymena
+Craigavon
+Omagh
