@@ -1,0 +1,302 @@
+Aberaeron
+Abercanaid
+Abercarn
+Abercynon
+Aberdare
+Aberfan
+Abergavenny
+Abergele
+Aberkenfig
+Aberporth
+Abertillery
+Abertridwr
+Aberystwyth
+Amlwch
+Ammanford
+Anglesey
+Bagillt
+Bala
+Bangor
+Bargoed
+Barmouth
+Barry
+Beaumaris
+Beddau
+Bedlinog
+Bedwas
+Benllech
+Bethesda
+Betws
+Betws-y-Coed
+Bishopston
+Blackwood
+Blaenau Gwent
+Blaenau-Ffestiniog
+Blaenavon
+Blaengwynfi
+Bodedern
+Bodelwyddan
+Borth
+Bow Street
+Brecon
+Bridgend
+Bridgend county borough
+Briton Ferry
+Broughton
+Brymbo
+Bryn
+Brynamman
+Brynmawr
+Brynna
+Buckley
+Builth Wells
+Burry Port
+Caergwrle
+Caerleon
+Caernarfon
+Caerphilly
+Caerphilly County Borough
+Caerwent
+Caldicot
+Cardiff
+Cardigan
+Carmarthen
+Carmarthenshire
+Cefn Cribwr
+Cemaes Bay
+Chepstow
+Chirk
+City and County of Swansea
+Clydach
+Coedpoeth
+Coity
+Colwyn Bay
+Conwy
+County of Ceredigion
+County of Flintshire
+Cowbridge
+Criccieth
+Crickhowell
+Croeserw
+Crofty
+Cross Hands
+Crumlin
+Crymych
+Crynant
+Cwm
+Cwmafan
+Cwmbach
+Cwmbran
+Deeside
+Deganwy
+Deiniolen
+Denbigh
+Denbighshire
+Deri
+Dinas Powys
+Dolgellau
+Dyffryn Ardudwy
+Dyserth
+Ebbw Vale
+Ferndale
+Fishguard
+Flint
+Fochriw
+Four Crosses
+Gaerwen
+Gelligaer
+Gilfach Goch
+Gilwern
+Glanamman
+Glandwr
+Glyn-neath
+Glyncorrwg
+Goodwick
+Gorseinon
+Govilon
+Greenfield
+Gresford
+Gronant
+Grovesend
+Guilsfield
+Gwynedd
+Harlech
+Haverfordwest
+Hawarden
+Hay
+Hengoed
+Henllan
+Hirwaun
+Holyhead
+Holywell
+Hook
+Hope
+Hundleton
+Johnston
+Kidwelly
+Kilgetty
+Knighton
+Lampeter
+Leeswood
+Letterston
+Llanarth
+Llanbedr
+Llanberis
+Llanbradach
+Llandeilo
+Llandovery
+Llandrindod Wells
+Llandudno
+Llandybie
+Llandysul
+Llanelli
+Llanerchymedd
+Llanfair Caereinion
+Llanfairfechan
+Llanfairpwllgwyngyll
+Llanfyllin
+Llangefni
+Llangoed
+Llangollen
+Llangwm
+Llangybi
+Llangynidr
+Llanharan
+Llanharry
+Llanidloes
+Llanilar
+Llanrhaeadr-ym-Mochnant
+Llanrug
+Llanrwst
+Llansantffraid Glan Conwy
+Llansteffan
+Llantrisant
+Llantwit Fardre
+Llantwit Major
+Llwynypia
+Machen
+Machynlleth
+Maesteg
+Magor
+Marchwiel
+Marshfield
+Menai Bridge
+Merthyr Tydfil
+Merthyr Tydfil County Borough
+Milford Haven
+Moelfre
+Mold
+Monmouth
+Monmouthshire
+Mostyn
+Mountain Ash
+Narberth
+Neath
+Neath Port Talbot
+Nefyn
+Nelson
+New Quay
+New Tredegar
+Newbridge
+Newcastle Emlyn
+Newport
+Newtown
+Neyland
+Northop
+Ogmore Vale
+Overton
+Pembroke
+Pembroke Dock
+Pembrokeshire
+Pen-clawdd
+Penally
+Penarth
+Pencader
+Pencoed
+Penmaenmawr
+Penparcau
+Penrhyndeudraeth
+Pentre
+Pentyrch
+Penyffordd
+Penygroes
+Pont Rhyd-y-cyff
+Pontarddulais
+Pontlliw
+Pontyates
+Pontyberem
+Pontyclun
+Pontycymer
+Pontypool
+Pontypridd
+Port Talbot
+Porthcawl
+Porthmadog
+Prestatyn
+Presteigne
+Price Town
+Pwllheli
+Pyle
+Radyr
+Raglan
+Resolven
+Rhayader
+Rhondda
+Rhondda Cynon Taf
+Rhoose
+Rhosllanerchrugog
+Rhosneigr
+Rhuddlan
+Rhyl
+Rhymney
+Risca
+Rogiet
+Rossett
+Ruabon
+Ruthin
+Saint Asaph
+Saint Clears
+Saint Davids
+Saundersfoot
+Seven Sisters
+Sir Powys
+Southgate
+Spittal
+Steynton
+Swansea
+Taibach
+Tal-y-bont
+Talgarth
+Talysarn
+Templeton
+Tenby
+Three Crosses
+Tintern
+Tonypandy
+Tonyrefail
+Torfaen County Borough
+Trawsfynydd
+Tredegar
+Trefnant
+Tregaron
+Tregarth
+Treharris
+Treorchy
+Treuddyn
+Trimsaran
+Tumble
+Tycroes
+Tywyn
+Undy
+Usk
+Vale of Glamorgan
+Valley
+Victoria
+Welshpool
+Wenvoe
+Whitland
+Wick
+Wrexham
+Y Felinheli
+Ynysybwl
+Ystalyfera

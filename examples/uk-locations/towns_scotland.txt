@@ -1,0 +1,530 @@
+Aberchirder
+Aberdeen
+Aberdeen City
+Aberdeenshire
+Aberdour
+Aberfeldy
+Aberlady
+Abernethy
+Aboyne
+Addiebrownhill
+Airdrie
+Airth
+Alexandria
+Alford
+Allanton
+Alloa
+Almondbank
+Alness
+Alva
+Alyth
+Angus
+Annan
+Anstruther
+Arbroath
+Ardersier
+Ardrishaig
+Ardrossan
+Argyll and Bute
+Armadale
+Ashgill
+Auchinleck
+Auchterarder
+Auchtermuchty
+Aviemore
+Ayr
+Balerno
+Balfron
+Balintore
+Ballater
+Ballingry
+Balloch
+Balmedie
+Balmullo
+Banchory
+Banff
+Bankfoot
+Banknock
+Bannockburn
+Bargeddie
+Barra
+Barrhead
+Bathgate
+Bearsden
+Beauly
+Beith
+Bellsbank
+Bellshill
+Benbecula
+Biggar
+Bilston
+Bishopbriggs
+Bishopton
+Blackburn
+Blackridge
+Blackwood
+Blairgowrie
+Blantyre
+Boddam
+Bonhill
+Bonnybridge
+Bonnyrigg
+Bothwell
+Bo’ness
+Brechin
+Bridge of Allan
+Bridge of Earn
+Bridge of Weir
+Brightons
+Brora
+Broxburn
+Buckhaven
+Buckie
+Burghead
+Burntisland
+Busby
+Cairneyhill
+Cairnryan
+Calderbank
+Caldercruix
+Callander
+Cambuslang
+Campbeltown
+Caol
+Cardenden
+Cardross
+Carfin
+Carluke
+Carmunnock
+Carnoustie
+Carnwath
+Carron
+Carronshore
+Castle Douglas
+Catrine
+Chapelhall
+Charlestown of Aberlour
+Chirnside
+Chryston
+City of Edinburgh
+Clackmannan
+Clackmannanshire
+Clarkston
+Cleland
+Clydebank
+Coalburn
+Coaltown of Balgonie
+Coatbridge
+Cockenzie
+Coldstream
+Colinton
+Comrie
+Conon Bridge
+Coupar Angus
+Cove
+Cowdenbeath
+Cowie
+Coylton
+Crail
+Crieff
+Crossford
+Crossgates
+Crosshouse
+Croy
+Cruden Bay
+Cullen
+Culloden
+Cults
+Cumbernauld
+Cumnock
+Cupar
+Currie
+Dalbeattie
+Dalgety Bay
+Dalkeith
+Dalmellington
+Dalry
+Dalrymple
+Dalserf
+Danderhall
+Darvel
+Denny
+Dennyloanhead
+Dingwall
+Dollar
+Dornoch
+Douglas
+Doune
+Dreghorn
+Drongan
+Drumnadrochit
+Dufftown
+Dumbarton
+Dumfries
+Dumfries and Galloway
+Dunbar
+Dunblane
+Dundee
+Dundee City
+Dundonald
+Dunfermline
+Dunipace
+Dunlop
+Dunoon
+Duns
+Duntocher
+Dyce
+Eaglesham
+Earlston
+East Ayrshire
+East Calder
+East Dunbartonshire
+East Kilbride
+East Linton
+East Lothian
+East Renfrewshire
+East Wemyss
+East Whitburn
+Eastriggs
+Edinburgh
+Eilean Siar
+Elderslie
+Elgin
+Ellon
+Errol
+Erskine
+Evanton
+Eyemouth
+Faifley
+Fairlie
+Falkirk
+Falkland
+Fallin
+Fauldhouse
+Fenwick
+Fife
+Findochty
+Fochabers
+Forfar
+Forres
+Fort William
+Forth
+Fortrose
+Fraserburgh
+Freuchie
+Friockheim
+Galashiels
+Galston
+Garelochhead
+Gartcosh
+Giffnock
+Girvan
+Glasgow
+Glasgow City
+Glenboig
+Glenmavis
+Glenrothes
+Golspie
+Gorebridge
+Gourock
+Grangemouth
+Grantown on Spey
+Greenhill
+Greenock
+Gretna
+Gullane
+Haddington
+Halkirk
+Hallglen
+Hamilton
+Harthill
+Hawick
+Head of Muir
+Helensburgh
+High Blantyre
+High Valleyfield
+Highland
+Hillside
+Holytown
+Hopeman
+Houston
+Howwood
+Huntly
+Inchinnan
+Inchture
+Innerleithen
+Insch
+Inverbervie
+Inverclyde
+Invergordon
+Invergowrie
+Inverkeithing
+Inverkip
+Inverness
+Inverurie
+Irvine
+Isle Of Mull
+Isle of Arran
+Isle of Bute
+Isle of Cumbrae
+Isle of Islay
+Isle of Lewis
+Isle of North Uist
+Isle of South Uist
+Jedburgh
+Johnstone
+Keith
+Kelso
+Kelty
+Kemnay
+Kennoway
+Kilbarchan
+Kilbirnie
+Kilcreggan
+Killearn
+Kilmacolm
+Kilmarnock
+Kilmaurs
+Kilsyth
+Kilwinning
+Kincardine
+Kinghorn
+Kinglassie
+Kingskettle
+Kingswells
+Kingussie
+Kinloss
+Kinross
+Kintore
+Kippen
+Kirkcaldy
+Kirkconnel
+Kirkcudbright
+Kirkintilloch
+Kirkliston
+Kirknewton
+Kirkwall
+Kirriemuir
+Ladybank
+Lamlash
+Lanark
+Langholm
+Larbert
+Largs
+Larkhall
+Lauder
+Laurencekirk
+Laurieston
+Law
+Lennoxtown
+Lenzie
+Lerwick
+Leslie
+Lesmahagow
+Letham
+Leuchars
+Leven
+Lhanbryde
+Limekilns
+Linlithgow
+Linwood
+Livingston
+Loanhead
+Locharbriggs
+Lochgelly
+Lochgilphead
+Lochmaben
+Lochwinnoch
+Lockerbie
+Logan
+Longforgan
+Longniddry
+Lossiemouth
+Luncarty
+Lundin Links
+Macduff
+Macmerry
+Maddiston
+Markinch
+Maryburgh
+Mauchline
+Maxwellheugh
+Maybole
+Mayfield
+Melrose
+Menstrie
+Methil
+Methven
+Mid Calder
+Midlothian
+Millport
+Milltimber
+Milnathort
+Milngavie
+Milton of Campsie
+Milton of Leys
+Mintlaw
+Moffat
+Monifieth
+Montrose
+Moodiesburn
+Moray
+Mossblown
+Motherwell
+Muir of Ord
+Muirhead
+Muirkirk
+Musselburgh
+Nairn
+Neilston
+Netherlee
+New Cumnock
+New Pitsligo
+New Stevenston
+Newarthill
+Newbridge
+Newburgh
+Newmacher
+Newmains
+Newmilns
+Newport-on-Tay
+Newton Mearns
+Newton Stewart
+Newtonhill
+Newtonmore
+Newtown St Boswells
+North Ayrshire
+North Berwick
+North Lanarkshire
+North Queensferry
+Oakley
+Oban
+Ochiltree
+Old Kilpatrick
+Oldmeldrum
+Orkney
+Orkney Islands
+Ormiston
+Overtown
+Paisley
+Patna
+Peebles
+Pencaitland
+Penicuik
+Perth
+Perth and Kinross
+Peterculter
+Peterhead
+Pitlochry
+Pitmedden
+Pittenweem
+Plains
+Plean
+Polbeth
+Polmont
+Port Bannatyne
+Port Erroll
+Port Glasgow
+Portknockie
+Portlethen
+Portree
+Portsoy
+Prestonpans
+Prestwick
+Queensferry
+Ratho
+Ratho Station
+Redding
+Reddingmuirhead
+Renfrew
+Renfrewshire
+Renton
+Rhu
+Rosehearty
+Rosewell
+Roslin
+Rosneath
+Rosyth
+Rothes
+Rothesay
+Rothienorman
+Rutherglen
+Saint Andrews
+Saint Boswells
+Saint Cyrus
+Saint Monans
+Saline
+Salsburgh
+Saltcoats
+Sandbank
+Sandwick
+Sanquhar
+Scalloway
+Scone
+Seafield
+Selkirk
+Shetland Islands
+Shieldhill
+Shotts
+Skelmorlie
+Slamannan
+Smithton
+South Ayrshire
+South Lanarkshire
+Springside
+Stanley
+Stenhousemuir
+Stepps
+Stevenston
+Stewarton
+Stirling
+Stonehaven
+Stonehouse
+Stoneyburn
+Stornoway
+Stranraer
+Strathaven
+Strathblane
+Strathpeffer
+Stromness
+Symington
+Tain
+Tarbert
+Tarbolton
+Tayport
+The Scottish Borders
+Thornhill
+Thornliebank
+Thornton
+Thurso
+Tillicoultry
+Tobermory
+Torphins
+Torrance
+Townhill
+Tranent
+Troon
+Tullibody
+Turriff
+Twechar
+Tweedbank
+Uddingston
+Ullapool
+Vale of Leven
+Viewpark
+Waterfoot
+Wemyss Bay
+West Calder
+West Dunbartonshire
+West Kilbride
+West Linton
+West Lothian
+Westhill
+Westquarter
+Whitburn
+Whitecraig
+Whitehills
+Wick
+Winchburgh
+Windygates
+Wishaw

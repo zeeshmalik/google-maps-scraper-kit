@@ -1,0 +1,85 @@
+# UK places with official city status (76)
+
+## England (55)
+Bath
+Birmingham
+Bradford
+Brighton and Hove
+Bristol
+Cambridge
+Canterbury
+Carlisle
+Chelmsford
+Chester
+Chichester
+Colchester
+Coventry
+Derby
+Doncaster
+Durham
+Ely
+Exeter
+Gloucester
+Hereford
+Kingston upon Hull
+Lancaster
+Leeds
+Leicester
+Lichfield
+Lincoln
+Liverpool
+City of London
+Manchester
+Milton Keynes
+Newcastle upon Tyne
+Norwich
+Nottingham
+Oxford
+Peterborough
+Plymouth
+Portsmouth
+Preston
+Ripon
+St Albans
+Salford
+Salisbury
+Sheffield
+Southampton
+Southend-on-Sea
+Stoke-on-Trent
+Sunderland
+Truro
+Wakefield
+Wells
+Westminster
+Winchester
+Wolverhampton
+Worcester
+York
+
+## Scotland (8)
+Aberdeen
+Dundee
+Dunfermline
+Edinburgh
+Glasgow
+Inverness
+Perth
+Stirling
+
+## Wales (7)
+Bangor
+Cardiff
+Newport
+St Asaph
+St Davids
+Swansea
+Wrexham
+
+## Northern Ireland (6)
+Armagh
+Bangor
+Belfast
+Derry~Londonderry
+Lisburn
+Newry
