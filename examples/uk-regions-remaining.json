@@ -1,0 +1,90 @@
+{
+  "$comment": "UK regions NOT yet scraped (excludes Birmingham, Black Country, Leicester, Bristol, South Wales, Coventry, Stoke, Luton, Slough, East/NW/South/Outer London, Glasgow, Edinburgh, Greater Manchester, Liverpool, Lancashire, Southampton, Portsmouth, Reading, Oxford, South Yorkshire, Nottingham, Derby, Tyne & Wear, Teesside, West Yorkshire). Each region = one CSV. Areas run in order: main city first, then surrounding towns, until the region hits its target. '{town}' in keywords is replaced by the area name.",
+  "country": "UK",
+  "keywords": [
+    "grocery store in {town}",
+    "convenience store in {town}",
+    "corner shop in {town}",
+    "mini market in {town}",
+    "off licence in {town}",
+    "food and wine shop in {town}",
+    "international supermarket in {town}",
+    "halal grocery store in {town}",
+    "polish shop in {town}",
+    "asian grocery store in {town}",
+    "african caribbean grocery in {town}",
+    "newsagent in {town}"
+  ],
+  "regions": [
+    {"slug": "east-anglia-independent-shops", "areas": [
+      "Norwich", "Ipswich", "Cambridge", "Peterborough", "Colchester", "Bury St Edmunds",
+      "King's Lynn", "Great Yarmouth", "Lowestoft", "Huntingdon", "St Neots", "Wisbech",
+      "Ely", "Thetford", "Felixstowe", "Haverhill", "Sudbury Suffolk", "Dereham"]},
+    {"slug": "essex-hertfordshire-independent-shops", "areas": [
+      "Chelmsford", "Southend-on-Sea", "Basildon", "Harlow", "Watford", "Stevenage",
+      "St Albans", "Hemel Hempstead", "Grays Essex", "Brentwood", "Braintree", "Hatfield",
+      "Welwyn Garden City", "Cheshunt", "Hertford", "Hitchin", "Bishop's Stortford",
+      "Canvey Island", "Clacton-on-Sea", "Witham"]},
+    {"slug": "kent-sussex-independent-shops", "areas": [
+      "Brighton", "Hove", "Maidstone", "Chatham Kent", "Gillingham Kent", "Rochester Kent",
+      "Dartford", "Gravesend", "Canterbury", "Margate", "Ramsgate", "Ashford Kent",
+      "Folkestone", "Dover", "Eastbourne", "Hastings", "Worthing", "Tunbridge Wells",
+      "Sittingbourne", "Bognor Regis"]},
+    {"slug": "surrey-west-sussex-north-hampshire-independent-shops", "areas": [
+      "Crawley", "Guildford", "Woking", "Redhill", "Reigate", "Epsom", "Staines-upon-Thames",
+      "Basingstoke", "Farnborough", "Aldershot", "Camberley", "Bracknell", "Horsham",
+      "Leatherhead", "Farnham", "Chichester", "Weybridge", "Andover"]},
+    {"slug": "milton-keynes-northants-beds-bucks-independent-shops", "areas": [
+      "Milton Keynes", "Northampton", "Bedford", "Kettering", "Corby", "Wellingborough",
+      "Aylesbury", "High Wycombe", "Banbury", "Daventry", "Rushden", "Leighton Buzzard",
+      "Bletchley", "Biggleswade", "Buckingham", "Towcester"]},
+    {"slug": "devon-cornwall-independent-shops", "areas": [
+      "Plymouth", "Exeter", "Torquay", "Paignton", "Newton Abbot", "Exmouth", "Barnstaple",
+      "Truro", "Falmouth", "Newquay", "St Austell", "Penzance", "Camborne", "Redruth",
+      "Bodmin", "Tiverton", "Bideford", "Brixham", "Saltash", "Tavistock"]},
+    {"slug": "dorset-wiltshire-somerset-independent-shops", "areas": [
+      "Bournemouth", "Poole", "Swindon", "Bath", "Salisbury", "Taunton", "Yeovil",
+      "Weymouth", "Chippenham", "Trowbridge", "Bridgwater", "Frome", "Dorchester Dorset",
+      "Christchurch Dorset", "Weston-super-Mare", "Wells Somerset", "Devizes", "Melksham",
+      "Ferndown", "Shepton Mallet"]},
+    {"slug": "gloucs-worcs-hereford-shropshire-independent-shops", "areas": [
+      "Gloucester", "Cheltenham", "Worcester", "Hereford", "Shrewsbury", "Telford",
+      "Kidderminster", "Redditch", "Stroud", "Evesham", "Malvern", "Stratford-upon-Avon",
+      "Tewkesbury", "Oswestry", "Ludlow", "Bromsgrove", "Droitwich", "Leominster"]},
+    {"slug": "hull-york-north-yorkshire-independent-shops", "areas": [
+      "Hull", "York", "Scarborough", "Harrogate", "Beverley", "Bridlington", "Goole", "Selby",
+      "Hessle", "Cottingham East Yorkshire", "Withernsea", "Driffield", "Ripon", "Knaresborough",
+      "Whitby", "Northallerton", "Malton", "Pocklington"]},
+    {"slug": "lincolnshire-independent-shops", "areas": [
+      "Lincoln", "Grimsby", "Scunthorpe", "Cleethorpes", "Boston Lincolnshire", "Grantham",
+      "Spalding", "Skegness", "Gainsborough", "Sleaford", "Stamford", "Louth",
+      "Mablethorpe", "Brigg", "Market Rasen", "Bourne Lincolnshire"]},
+    {"slug": "cheshire-north-wales-cumbria-independent-shops", "areas": [
+      "Chester", "Crewe", "Wrexham", "Warrington", "Northwich", "Macclesfield", "Rhyl",
+      "Llandudno", "Colwyn Bay", "Bangor Gwynedd", "Carlisle", "Kendal", "Barrow-in-Furness",
+      "Workington", "Whitehaven", "Penrith", "Ellesmere Port", "Winsford", "Prestatyn",
+      "Holyhead"]},
+    {"slug": "west-mid-wales-independent-shops", "areas": [
+      "Llanelli", "Carmarthen", "Aberystwyth", "Haverfordwest", "Pembroke Dock", "Milford Haven",
+      "Ammanford", "Newtown Powys", "Brecon", "Llandrindod Wells", "Cardigan", "Tenby",
+      "Welshpool", "Abergavenny", "Monmouth"]},
+    {"slug": "scotland-north-east-highlands-independent-shops", "areas": [
+      "Aberdeen", "Dundee", "Inverness", "Perth Scotland", "Elgin", "Peterhead", "Fraserburgh",
+      "Arbroath", "Montrose", "Forfar", "Stonehaven", "Inverurie", "Nairn", "Fort William",
+      "Thurso", "Wick", "Broughty Ferry", "Dingwall"]},
+    {"slug": "scotland-central-south-independent-shops", "areas": [
+      "Stirling", "Falkirk", "Dunfermline", "Kirkcaldy", "Glenrothes", "Ayr", "Kilmarnock",
+      "Irvine", "Dumfries", "St Andrews", "Alloa", "Grangemouth", "Galashiels", "Hawick",
+      "Cumnock", "Stranraer", "Methil", "Troon"]},
+    {"slug": "northern-ireland-independent-shops", "areas": [
+      "Belfast", "Derry Londonderry", "Lisburn", "Newtownabbey", "Bangor County Down",
+      "Newry", "Craigavon", "Portadown", "Lurgan", "Ballymena", "Coleraine", "Omagh",
+      "Enniskillen", "Antrim", "Armagh", "Dungannon", "Newtownards", "Carrickfergus",
+      "Larne", "Strabane"]},
+    {"slug": "central-north-london-independent-shops", "areas": [
+      "Camden London", "Islington London", "Westminster London", "Kensington London",
+      "Hammersmith London", "Fulham London", "Kentish Town London", "Holloway London",
+      "Finsbury Park London", "Tottenham London", "Wood Green London", "Hornsey London",
+      "Edmonton London", "Edgware Road London", "Paddington London", "Kilburn London"]}
+  ]
+}
