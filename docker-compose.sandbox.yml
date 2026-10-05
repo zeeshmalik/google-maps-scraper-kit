@@ -1,10 +1,20 @@
-# Only for Claude Code cloud sandboxes: outbound HTTPS there goes through a proxy that re-signs TLS,
-# so the container must trust its CA bundle. Use:
-#   docker compose -f docker-compose.yml -f docker-compose.sandbox.yml up -d
+# Only for Claude Code cloud sandboxes. There, Google is reachable only through the session's local
+# egress proxy (127.0.0.1:41727), which re-signs TLS. So the container shares the host network, sends
+# traffic through that proxy, and trusts its CA (Go via SSL_CERT_FILE, Chromium via an NSS store).
+# Start with scripts/sandbox-setup.sh (builds the NSS store, then runs compose with this file).
 services:
   google-maps-scraper:
+    network_mode: host          # still only reachable on localhost:8080 — the sandbox has no public ingress
+    ports: !reset []
     environment:
+      HTTPS_PROXY: ${HTTPS_PROXY:-http://127.0.0.1:41727}
+      HTTP_PROXY: ${HTTPS_PROXY:-http://127.0.0.1:41727}
+      https_proxy: ${HTTPS_PROXY:-http://127.0.0.1:41727}
+      http_proxy: ${HTTPS_PROXY:-http://127.0.0.1:41727}
+      NO_PROXY: localhost,127.0.0.1
+      no_proxy: localhost,127.0.0.1
       SSL_CERT_FILE: /etc/ssl/certs/sandbox-ca.crt
       NODE_EXTRA_CA_CERTS: /etc/ssl/certs/sandbox-ca.crt
     volumes:
       - /root/.ccr/ca-bundle.crt:/etc/ssl/certs/sandbox-ca.crt:ro
+      - ./.sandbox-nssdb:/root/.pki/nssdb

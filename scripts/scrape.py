@@ -137,6 +137,8 @@ def main():
     # Emails are ON by default (they're the most valuable lead field). Visits each business
     # website to find an address — a bit slower. Use --no-email to skip for a fast run.
     ap.add_argument("--email", dest="email", action="store_true", default=True, help=argparse.SUPPRESS)
+    ap.add_argument("--proxies", default=os.environ.get("SCRAPER_PROXIES", ""),
+                    help="comma-separated proxy URLs, e.g. http://user:pass@host:port (or set SCRAPER_PROXIES)")
     ap.add_argument("--no-email", dest="email", action="store_false",
                     help="skip email extraction for a faster run (emails are on by default)")
     ap.add_argument("--max-time", type=int, default=600, help="job time limit in SECONDS")
@@ -186,6 +188,9 @@ def main():
     body = {"name": "scrape-py", "keywords": keywords, "lang": "en", "zoom": 15,
             "lat": str(lat), "lon": str(lon), "fast_mode": False, "radius": 10000,
             "depth": a.depth, "email": a.email, "max_time": a.max_time}
+    proxies = [x.strip() for x in a.proxies.split(",") if x.strip()]
+    if proxies:
+        body["proxies"] = proxies
     print(f"▶ Creating job: {len(keywords)} keyword(s) @ {lat},{lon} depth={a.depth} email={a.email}")
     for k in keywords:
         print(f"    • {k}")
