@@ -10,7 +10,8 @@ Use the `google-maps-scraper` skill rules (emails on, warn-don't-block, PII). Th
 2. Show progress first: `python3 scripts/uk_queue.py --status`.
 3. Warn ONCE: this is a long, high-volume run (many towns × 12 keywords) — it can get the IP temporarily
    rate-limited by Google; suggest `--proxies`. Then proceed.
-4. Run in the BACKGROUND (`run_in_background: true`): `python3 scripts/uk_queue.py $ARGUMENTS`.
+4. To run in chunks add `--max-areas N` (N towns per run; re-run for the next chunk).
+   Run in the BACKGROUND (`run_in_background: true`): `python3 scripts/uk_queue.py $ARGUMENTS`.
    Regions/towns/keywords live in `examples/uk-regions-remaining.json` (edit to add towns).
    Each region → `output/uk-independent-shops/<region>.csv`, filled area by area until ~1300 (cap 1500).
 5. **Continue** = re-run the same command; finished towns are skipped and in-flight jobs re-attached.

@@ -276,6 +276,8 @@ def main():
                     help="keep Spar/Londis/Premier/Nisa/Costcutter-type franchise stores")
     ap.add_argument("--exclude-dir", help="folder of CSVs you already have; matching shops are skipped")
     ap.add_argument("--proxies", nargs="*", help="proxy URLs, e.g. socks5://user:pass@host:port")
+    ap.add_argument("--max-areas", type=int, default=0,
+                    help="CHUNK mode: scrape this many towns, then stop (re-run to do the next chunk)")
     ap.add_argument("--poll", type=int, default=20, help="seconds between status checks")
     ap.add_argument("--keep-jobs", action="store_true", help="don't delete finished jobs from the scraper")
     ap.add_argument("--status", action="store_true", help="print progress and exit")
@@ -309,6 +311,7 @@ def main():
         return
 
     flt = Filter(a.keep_symbol_groups, load_exclusions(a.exclude_dir) if a.exclude_dir else set())
+    areas_run = 0  # towns scraped this run (for --max-areas chunks)
     taken = set()  # shops already placed in an earlier region's CSV (surrounding towns overlap)
 
     for region in regions:
@@ -333,6 +336,11 @@ def main():
             if st["failed"].get(area, 0) >= 2:
                 log(f"  · {area}: failed twice before — skipping")
                 continue
+            if a.max_areas and areas_run >= a.max_areas:
+                save_json(state_path, state)
+                log(f"⏸ Chunk done ({areas_run} towns). Re-run the same command for the next chunk.")
+                return
+            areas_run += 1
             res = run_area(region, area, cfg, a, state, geo_cache, state_path, geo_path)
             if res == "skip":
                 continue
