@@ -57,6 +57,11 @@ FOODISH = ["grocery", "convenience", "supermarket", "market", "newsstand", "maga
            "international", "asian", "polish", "african", "caribbean", "oriental", "chinese", "indian",
            "turkish", "middle eastern", "kosher", "latin", "european", "ethnic", "spice", "bangladeshi",
            "pakistani", "eastern european", "romanian", "lithuanian", "japanese", "korean", "thai", "filipino"]
+# Franchise/chain websites — catches "Rackheath Stores" whose site is premier-stores.co.uk
+CHAIN_DOMAINS = re.compile(r"premier-stores|londis|spar\.|spar-|budgens|costcutter|nisalocally|nisa\.|onestop|"
+                           r"best-one|bestone|mace|centra|day-today|family-shopper|keystore|lifestyleexpress|"
+                           r"simplyfresh|coop\.co\.uk|co-operative|tesco|sainsburys|asda|morrisons|iceland|"
+                           r"mccolls|bargainbooze|booker|bestway|select-convenience|todays", re.I)
 UK_POSTCODE = re.compile(r"\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b", re.I)
 
 
@@ -122,6 +127,7 @@ def slug(s):
 class Filter:
     def __init__(self, keep_symbol_groups, exclude_keys):
         self.chain_rx = _rx(CHAINS if keep_symbol_groups else CHAINS + SYMBOL_GROUPS)
+        self.check_domains = not keep_symbol_groups
         self.food_rx = _rx(FOODISH)
         # odd Google category but obviously a shop by name (e.g. "The Newsagents & Off Licence | Building")
         self.title_rx = _rx(["news", "newsagent", "newsagents", "off licence", "off license", "convenience",
@@ -134,6 +140,8 @@ class Filter:
         if not title:
             return "no name"
         if self.chain_rx.search(title.replace("’", "'")):
+            return "chain"
+        if self.check_domains and CHAIN_DOMAINS.search(r.get("website", "") or ""):
             return "chain"
         if cat and not self.food_rx.search(cat) and not self.title_rx.search(title):
             return "not grocery"
