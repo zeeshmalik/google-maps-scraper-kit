@@ -1,0 +1,88 @@
+# UK grocery / convenience chains and franchises to EXCLUDE when collecting independent shops.
+# Used by scripts/scrape_places.py --exclude-chains. One name per line, case-insensitive; a business is
+# dropped when its name contains one of these as a whole word/phrase. Add more as you spot them.
+# Note: symbol groups (Londis, Costcutter, Nisa, Spar, Premier, Budgens, Mace...) are often run by
+# independent owners. They are listed here because they trade under a chain brand; delete a line to keep them.
+
+# ── Supermarkets ──
+Tesco
+Sainsbury's
+Sainsburys
+Asda
+Morrisons
+Aldi
+Lidl
+Waitrose
+Marks & Spencer
+M&S
+Iceland
+The Food Warehouse
+Co-op
+Coop
+Co-operative
+Central Co-op
+Southern Co-op
+Midcounties Co-operative
+Scotmid
+Lincolnshire Co-op
+East of England Co-op
+Chelmsford Star Co-op
+Farmfoods
+Heron Foods
+B&M
+Home Bargains
+Poundland
+Jack's
+Booths
+Ocado
+Whole Foods
+Planet Organic
+Costco
+Makro
+Booker
+Bestway
+
+# ── Convenience chains / franchises / symbol groups ──
+One Stop
+Spar
+Nisa
+Nisa Local
+Londis
+Costcutter
+Premier
+Budgens
+Mace
+McColl's
+Martin's
+Day-Today
+Day Today
+Family Shopper
+Best-one
+Bestone
+Best One
+Lifestyle Express
+Simply Fresh
+Go Local
+Select Convenience
+Centra
+Eurospar
+Vivo
+Today's Local
+Morrisons Daily
+Little Waitrose
+Sainsbury's Local
+Tesco Express
+Tesco Extra
+Asda Express
+Shell
+BP
+Esso
+Texaco
+Jet
+Applegreen
+MFG
+EG On The Move
+Rontec
+WHSmith
+7-Eleven
+Amazon Fresh
