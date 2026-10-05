@@ -13,6 +13,10 @@ services:
     container_name: gmaps-scraper
     restart: unless-stopped
     command: ["-web", "-data-folder", "/gmapsdata"]
+    environment:
+      # The image ships the Playwright driver here; without this it tries to re-download it from a
+      # retired CDN (azureedge.net → 404) and every job fails with "could not install driver".
+      PLAYWRIGHT_DRIVER_PATH: /opt/ms-playwright-go/1.57.0
     ports:
       - "127.0.0.1:8080:8080"   # localhost only — see warning above
     volumes:
