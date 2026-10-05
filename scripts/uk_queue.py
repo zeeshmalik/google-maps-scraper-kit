@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Region queue: scrape area-by-area (main city, then surrounding towns) into ONE CSV per region,
-skipping chains, until each region holds ~1200-1500 independent shops. Resumable.
+skipping chains. By default EVERY town in a region is scraped (no cap). Resumable.
 
     python3 scripts/uk_queue.py                       # run / CONTINUE the whole queue
     python3 scripts/uk_queue.py --only lincolnshire-independent-shops
     python3 scripts/uk_queue.py --status              # progress per region
     python3 scripts/uk_queue.py --rebuild             # re-filter saved raw data, no scraping
+    python3 scripts/uk_queue.py --forever             # unattended: auto-wait out rate limits / restarts
 
 Continue: progress lives in <out-dir>/state.json and raw results in <out-dir>/raw/. Just re-run the
 same command after a stop/crash/reboot — finished areas are skipped and an in-flight job is re-attached
@@ -39,6 +40,7 @@ CHAINS = [  # national / multinational grocers, discounters, pharmacies, bakerie
     "mfg", "moto", "welcome break", "roadchef", "post office", "whsmith", "wh smith", "bargain booze",
     "wine rack", "majestic wine", "threshers", "booker", "bestway", "costco", "makro", "parfetts", "dhamecha",
     "united wholesale", "jd wholesale", "cooltrader", "jtf", "fulton's foods", "fultons foods", "card factory",
+    "tgjones", "tg jones", "inpost", "amazon counter", "amazon locker", "collect+", "evri",
     "lifestyle express", "morrisons daily", "little waitrose", "sainsbury's local", "tesco express",
 ]
 SYMBOL_GROUPS = [  # usually independently owned franchisees under a national brand
@@ -47,7 +49,7 @@ SYMBOL_GROUPS = [  # usually independently owned franchisees under a national br
     "select convenience", "centra", "mace", "go local", "simply fresh", "keystore", "key store", "today's",
     "todays", "vivo", "gala", "select & save", "lifestyle", "local plus", "your local", "go local extra",
 ]
-FOODISH = ["grocery", "convenience", "supermarket", "market", "off licence", "off-licence", "liquor", "wine",
+FOODISH = ["grocery", "convenience", "supermarket", "market", "newsstand", "magazine", "off licence", "off-licence", "liquor", "wine",
            "beer", "food", "newsagent", "news agent", "delicatessen", "deli", "butcher", "halal", "tobacco",
            "organic", "fruit", "vegetable", "greengrocer", "produce", "general store", "variety store",
            "international", "asian", "polish", "african", "caribbean", "oriental", "chinese", "indian",
@@ -119,6 +121,10 @@ class Filter:
     def __init__(self, keep_symbol_groups, exclude_keys):
         self.chain_rx = _rx(CHAINS if keep_symbol_groups else CHAINS + SYMBOL_GROUPS)
         self.food_rx = _rx(FOODISH)
+        # odd Google category but obviously a shop by name (e.g. "The Newsagents & Off Licence | Building")
+        self.title_rx = _rx(["news", "newsagent", "newsagents", "off licence", "off license", "convenience",
+                             "mini market", "minimarket", "mini mart", "supermarket", "grocer", "grocers",
+                             "grocery", "food and wine", "food & wine", "food store", "stores", "store"])
         self.exclude = exclude_keys  # (name, postcode-ish) keys of shops already scraped elsewhere
 
     def reason(self, r):
@@ -127,7 +133,7 @@ class Filter:
             return "no name"
         if self.chain_rx.search(title.replace("’", "'")):
             return "chain"
-        if cat and not self.food_rx.search(cat):
+        if cat and not self.food_rx.search(cat) and not self.title_rx.search(title):
             return "not grocery"
         if "permanently closed" in (r.get("status", "") or "").lower():
             return "closed"
@@ -178,7 +184,7 @@ def build_region(region, out_dir, flt, taken, cap):
             continue
         seen |= k
         rows.append({f: r.get(f, "") for f in LEAD})
-        if len(rows) >= cap:
+        if cap and len(rows) >= cap:
             break
     with open(os.path.join(out_dir, region["slug"] + ".csv"), "w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=LEAD)
@@ -261,13 +267,20 @@ def run_area(region, area, cfg, a, state, geo_cache, state_path, geo_path):
     return n
 
 
+class RateLimited(Exception):
+    pass
+
+
 def main():
     ap = argparse.ArgumentParser(description="Queue regions → one de-chained CSV per region (resumable).")
     ap.add_argument("--regions", default="examples/uk-regions-remaining.json")
     ap.add_argument("--out-dir", default="output/uk-independent-shops")
     ap.add_argument("--only", help="comma-separated region slugs to run (default: all, in file order)")
-    ap.add_argument("--target", type=int, default=1300, help="stop adding areas once a region has this many")
-    ap.add_argument("--cap", type=int, default=1500, help="max rows written per region CSV")
+    ap.add_argument("--target", type=int, default=0,
+                    help="stop adding towns once a region has this many rows (0 = scrape every town)")
+    ap.add_argument("--cap", type=int, default=0, help="max rows per region CSV (0 = no cap)")
+    ap.add_argument("--forever", action="store_true",
+                    help="unattended: on rate-limit/connection errors wait and continue until the queue is done")
     ap.add_argument("--depth", type=int, default=8)
     ap.add_argument("--radius", type=int, default=12000, help="metres around each town")
     ap.add_argument("--max-time", type=int, default=2400, help="per-area job limit in SECONDS")
@@ -327,7 +340,7 @@ def main():
                     log(f"rebuilt {region['slug']}: {len(rows)} rows · dropped {why}")
             continue
 
-        log(f"══ {region['slug']} (target {a.target}) ══")
+        log(f"══ {region['slug']} (target {a.target or 'all towns'}) ══")
         empty_streak = 0
         rows, seen = [], set()
         for area in region["areas"]:
@@ -348,8 +361,7 @@ def main():
                 empty_streak += 1
                 if empty_streak >= 3:
                     save_json(state_path, state)
-                    sys.exit("✗ 3 areas in a row came back empty/failed — Google is probably rate-limiting this IP.\n"
-                             "  Wait 30-60 min (or add --proxies) and re-run the same command to CONTINUE.")
+                    raise RateLimited()
                 else:
                     log("  ⚠ empty/failed result — backing off 5 min")
                     time.sleep(300)
@@ -359,22 +371,40 @@ def main():
             st["rows"] = len(rows)
             save_json(state_path, state)
             log(f"  ✓ {area}: {res} raw → region now {len(rows)} independent shops (dropped {why})")
-            if len(rows) >= a.target:
+            if a.target and len(rows) >= a.target:
                 break
         rows, seen, why = build_region(region, a.out_dir, flt, taken, a.cap)
         taken |= seen
         st["rows"] = len(rows)
         retry = [x for x, c in st["failed"].items() if c < 2 and x not in st["done"]]
-        st["complete"] = len(rows) >= a.target or not retry
+        st["complete"] = bool(a.target and len(rows) >= a.target) or not retry
         save_json(state_path, state)
-        note = "" if len(rows) >= a.target else "  (all areas used — below target; add more towns to the JSON)"
+        note = "" if not a.target or len(rows) >= a.target else "  (all towns used — below target; add more to the JSON)"
         log(f"══ {region['slug']}: {len(rows)} rows → {os.path.join(a.out_dir, region['slug'] + '.csv')}{note}")
     save_json(state_path, state)
     log("Queue finished.")
 
 
+def run():
+    forever = "--forever" in sys.argv
+    while True:
+        try:
+            return main()
+        except RateLimited:
+            if not forever:
+                sys.exit("✗ 3 towns in a row came back empty/failed — Google is probably rate-limiting this IP.\n"
+                         "  Wait 30-60 min (or add --proxies) and re-run the same command to CONTINUE.")
+            log("⚠ Looks rate-limited — sleeping 45 min, then continuing (--forever).")
+            time.sleep(2700)
+        except (urllib.error.URLError, ConnectionError, TimeoutError, OSError) as e:
+            if not forever:
+                raise
+            log(f"⚠ Scraper unreachable ({e}) — retrying in 2 min (--forever).")
+            time.sleep(120)
+
+
 if __name__ == "__main__":
     try:
-        main()
+        run()
     except KeyboardInterrupt:
         sys.exit("\n⏸ Stopped. Re-run the same command to continue where it left off.")

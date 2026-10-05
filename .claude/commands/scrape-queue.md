@@ -13,7 +13,7 @@ Use the `google-maps-scraper` skill rules (emails on, warn-don't-block, PII). Th
 4. To run in chunks add `--max-areas N` (N towns per run; re-run for the next chunk).
    Run in the BACKGROUND (`run_in_background: true`): `python3 scripts/uk_queue.py $ARGUMENTS`.
    Regions/towns/keywords live in `examples/uk-regions-remaining.json` (edit to add towns).
-   Each region → `output/uk-independent-shops/<region>.csv`, filled area by area until ~1300 (cap 1500).
+   Each region → `output/uk-independent-shops/<region>.csv`; every town is scraped (no cap). Unattended: `--forever`.
 5. **Continue** = re-run the same command; finished towns are skipped and in-flight jobs re-attached.
 6. Chains (Tesco, Co-op, Spar, Londis, Premier, forecourts, wholesalers, any name at 4+ sites) are dropped.
    `--keep-symbol-groups` keeps franchise fascias; `--exclude-dir <folder>` skips shops already in old CSVs.
