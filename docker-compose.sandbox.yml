@@ -1,0 +1,10 @@
+# Only for Claude Code cloud sandboxes: outbound HTTPS there goes through a proxy that re-signs TLS,
+# so the container must trust its CA bundle. Use:
+#   docker compose -f docker-compose.yml -f docker-compose.sandbox.yml up -d
+services:
+  google-maps-scraper:
+    environment:
+      SSL_CERT_FILE: /etc/ssl/certs/sandbox-ca.crt
+      NODE_EXTRA_CA_CERTS: /etc/ssl/certs/sandbox-ca.crt
+    volumes:
+      - /root/.ccr/ca-bundle.crt:/etc/ssl/certs/sandbox-ca.crt:ro
