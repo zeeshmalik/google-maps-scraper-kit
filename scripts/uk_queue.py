@@ -84,19 +84,23 @@ def api(method, path, body=None, raw=False):
 
 
 def geocode(place, cache):
-    if place in cache:
+    if cache.get(place):
         return cache[place]
     q = urllib.parse.urlencode({"format": "json", "limit": 1, "countrycodes": "gb", "q": place})
     r = urllib.request.Request("https://nominatim.openstreetmap.org/search?" + q, headers={"User-Agent": UA})
-    try:
-        with urllib.request.urlopen(r, timeout=30) as resp:
-            hits = json.loads(resp.read())
-    except Exception as e:
-        log(f"  geocode failed for {place}: {e}")
-        hits = []
-    time.sleep(1.1)  # Nominatim: max ~1 req/sec
-    cache[place] = [hits[0]["lat"], hits[0]["lon"]] if hits else None
-    return cache[place]
+    for wait in (5, 30, 90, 0):  # Nominatim rate-limits (429) bursts — back off and retry
+        try:
+            with urllib.request.urlopen(r, timeout=30) as resp:
+                hits = json.loads(resp.read())
+            time.sleep(1.1)  # Nominatim: max ~1 req/sec
+            if hits:
+                cache[place] = [hits[0]["lat"], hits[0]["lon"]]
+                return cache[place]
+            return None  # genuinely unknown place (not cached, so a fixed name is retried)
+        except Exception as e:
+            log(f"  geocode failed for {place}: {e}" + (f" — retrying in {wait}s" if wait else ""))
+            time.sleep(wait)
+    return None
 
 
 # ── State (atomic JSON writes so Ctrl-C / crashes never corrupt it) ───────────
