@@ -26,7 +26,9 @@ except Exception:
     pass
 BASE = os.environ.get("SCRAPER_BASE_URL", "http://localhost:8080")
 UA = "google-maps-scraper-kit/1.0 (region queue)"
-LEAD = ["title", "phone", "emails", "website", "category", "address", "review_rating", "review_count", "area"]
+# Output columns: header -> scraper field
+OUT = {"Business Name": "title", "Business Category": "category", "Full Address": "address",
+       "Phone Number": "phone", "Website": "website"}
 
 # ── Chain filter ──────────────────────────────────────────────────────────────
 CHAINS = [  # national / multinational grocers, discounters, pharmacies, bakeries, forecourts, wholesale
@@ -183,11 +185,11 @@ def build_region(region, out_dir, flt, taken, cap):
             why[rs] = why.get(rs, 0) + 1
             continue
         seen |= k
-        rows.append({f: r.get(f, "") for f in LEAD})
+        rows.append({h: r.get(f, "") for h, f in OUT.items()})
         if cap and len(rows) >= cap:
             break
     with open(os.path.join(out_dir, region["slug"] + ".csv"), "w", encoding="utf-8-sig", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=LEAD)
+        w = csv.DictWriter(f, fieldnames=list(OUT))
         w.writeheader()
         w.writerows(rows)
     return rows, seen, why
