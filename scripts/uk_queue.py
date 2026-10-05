@@ -132,7 +132,8 @@ class Filter:
         # odd Google category but obviously a shop by name (e.g. "The Newsagents & Off Licence | Building")
         self.title_rx = _rx(["news", "newsagent", "newsagents", "off licence", "off license", "convenience",
                              "mini market", "minimarket", "mini mart", "supermarket", "grocer", "grocers",
-                             "grocery", "food and wine", "food & wine", "food store", "stores", "store"])
+                             "grocery", "food and wine", "food & wine", "food store", "stores", "store",
+                             "food market", "foods", "mart", "supermarkt", "sklep", "magazin", "bakkal"])
         self.exclude = exclude_keys  # (name, postcode-ish) keys of shops already scraped elsewhere
 
     def reason(self, r):
