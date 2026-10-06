@@ -236,9 +236,13 @@ def run_area(region, area, cfg, a, state, geo_cache, state_path, geo_path):
     if not job_id:
         coords = geocode(f"{area}, {cfg.get('country', 'UK')}", geo_cache)
         save_json(geo_path, geo_cache)
-        if not coords:
-            log(f"  ✗ could not geocode {area} — skipping")
-            return "skip"
+        if not coords:  # lookup rate-limited/down: town name is in every keyword, so a neighbour's centre works
+            near = [geo_cache.get(f"{x}, {cfg.get('country', 'UK')}") for x in region["areas"]]
+            coords = next((c for c in near if c), None)
+            if not coords:
+                log(f"  ✗ could not geocode {area} — skipping")
+                return "skip"
+            log(f"  ⚠ geocode failed for {area} — using a nearby town's centre (town name is in the searches)")
         kws = [k.format(town=area) for k in cfg["keywords"]]
         body = {"name": f"{region['slug']}:{area}", "keywords": kws, "lang": "en", "zoom": 14,
                 "lat": str(coords[0]), "lon": str(coords[1]), "fast_mode": False, "radius": a.radius,
