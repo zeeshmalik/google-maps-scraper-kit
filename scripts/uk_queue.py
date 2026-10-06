@@ -251,12 +251,25 @@ def run_area(region, area, cfg, a, state, geo_cache, state_path, geo_path):
         log(f"  ▶ job {job_id[:8]} · {area} · {len(kws)} keywords · depth {a.depth}")
     deadline = time.time() + a.max_time + 900
     status = None
+    last_size, stable_since = -1, time.time()
     while time.time() < deadline:
         try:
             status = api("GET", f"/api/v1/jobs/{job_id}").get("Status")
         except Exception as e:
             log(f"  (poll error: {e})")
         if status in ("ok", "failed"):
+            break
+        # Stall guard: at high concurrency the scraper sometimes finishes scraping but never flips the job
+        # to "ok". If its results file has data and stopped growing for --stall seconds, take it as done.
+        try:
+            size = len(api("GET", f"/api/v1/jobs/{job_id}/download", raw=True))
+        except Exception:
+            size = -1
+        if size != last_size:
+            last_size, stable_since = size, time.time()
+        elif size > 1000 and time.time() - stable_since >= a.stall:
+            log(f"  ⚠ job {job_id[:8]} stuck in 'working' but results stopped growing — saving them")
+            status = "ok"
             break
         time.sleep(a.poll)
     if status != "ok":
@@ -306,6 +319,8 @@ def main():
     ap.add_argument("--proxies", nargs="*", help="proxy URLs, e.g. socks5://user:pass@host:port")
     ap.add_argument("--max-areas", type=int, default=0,
                     help="CHUNK mode: scrape this many towns, then stop (re-run to do the next chunk)")
+    ap.add_argument("--stall", type=int, default=240,
+                    help="treat a job as done when its results stop growing for this many seconds")
     ap.add_argument("--poll", type=int, default=20, help="seconds between status checks")
     ap.add_argument("--keep-jobs", action="store_true", help="don't delete finished jobs from the scraper")
     ap.add_argument("--status", action="store_true", help="print progress and exit")
