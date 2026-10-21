@@ -1,0 +1,187 @@
+<title>UK Independent Shops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* Layout: one narrow column, like a shop's stock sheet: totals up top, one row per region, queue below. */
+:root {
+  --bg: #f3f6f4; --surface: #ffffff; --fg: #16201b; --muted: #56665d; --line: #d8e1db;
+  --accent: #1d6a44; --accent-fg: #ffffff; --accent-soft: #e2efe7; --warn: #9a3b12;
+  --display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1411; --surface: #151d19; --fg: #e4ebe7; --muted: #95a59c; --line: #26322c;
+  --accent: #4fc08a; --accent-fg: #08130d; --accent-soft: #1b2c23; --warn: #f0a07a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0e1411; --surface: #151d19; --fg: #e4ebe7; --muted: #95a59c; --line: #26322c;
+  --accent: #4fc08a; --accent-fg: #08130d; --accent-soft: #1b2c23; --warn: #f0a07a; color-scheme: dark }
+
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.5 var(--body); }
+.wrap { max-width: 720px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 48px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); font-stretch: 80%; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(30px, 7vw, 42px); font-weight: 800; line-height: 1.05; letter-spacing: -0.01em; }
+h2 { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+header { display: grid; gap: 12px; }
+.totals { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); font-size: 15px; }
+.totals b { color: var(--fg); font-weight: 600; }
+.cols { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.cols li { font: 500 12px/1 var(--mono); padding: 6px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--fg); }
+
+button { font: 600 15px/1 var(--body); border-radius: 6px; cursor: pointer; border: 1px solid var(--accent); padding: 11px 16px; }
+button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: .5; cursor: default; }
+.primary { background: var(--accent); color: var(--accent-fg); font-size: 16px; padding: 14px 20px; }
+.ghost { background: transparent; color: var(--accent); white-space: nowrap; }
+.all { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.msg { font-size: 14px; color: var(--muted); min-height: 1.2em; }
+.msg.err { color: var(--warn); }
+.notice { border: 1px solid var(--warn); color: var(--warn); border-radius: 6px; padding: 12px 14px; font-size: 15px; }
+
+.list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.row { display: flex; align-items: center; gap: 12px 16px; padding: 14px 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.row:first-child { border-top: 0; }
+.info { flex: 1 1 260px; min-width: 0; display: grid; gap: 2px; }
+.name { font-weight: 600; }
+.meta { font-size: 13px; color: var(--muted); }
+.row .msg { flex-basis: 100%; min-height: 0; }
+.row .msg:empty { display: none; }
+.bar { height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; margin-top: 6px; max-width: 220px; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.foot { font-size: 14px; color: var(--muted); max-width: 62ch; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>UK Independent Shops</h1>
+    <div class="totals" id="totals"></div>
+    <ul class="cols" aria-label="Columns in every file">
+      <li>Business Name</li><li>Business Category</li><li>Full Address</li><li>Phone Number</li><li>Website</li>
+    </ul>
+  </header>
+
+  <p class="notice" id="noDownloads" hidden>Downloads don't work in this view. Open this page in a web browser on claude.ai to save the files.</p>
+
+  <section class="all" id="masterWrap" hidden>
+    <button class="primary" id="masterBtn" type="button">Download UK master CSV</button>
+    <span class="meta num" id="masterMeta"></span>
+    <span class="msg" id="masterMsg" aria-live="polite"></span>
+  </section>
+
+  <section class="all">
+    <button class="ghost" id="zipBtn" type="button">Download all regions as ZIP</button>
+    <span class="msg" id="zipMsg" aria-live="polite"></span>
+  </section>
+
+  <section style="display:grid;gap:10px">
+    <h2>Finished regions</h2>
+    <ul class="list" id="done"></ul>
+  </section>
+
+  <section style="display:grid;gap:10px" id="todoWrap">
+    <h2>Still scraping</h2>
+    <ul class="list" id="todo"></ul>
+  </section>
+
+  <p class="foot">Independent grocery and convenience shops only: supermarket chains, symbol-group franchises and duplicates are removed. Each CSV opens in Excel or Google Sheets. This page gets each new region as soon as it finishes.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const M = /*MANIFEST*/null;
+const fmt = n => n.toLocaleString("en-GB");
+const $ = id => document.getElementById(id);
+
+const shops = M.done.reduce((a, r) => a + r.shops, 0);
+const towns = M.done.reduce((a, r) => a + r.towns, 0);
+$("totals").innerHTML =
+  `<span><b class="num">${fmt(shops)}</b> shops</span><span><b class="num">${M.done.length}</b> regions</span><span><b class="num">${fmt(towns)}</b> towns</span>`;
+
+for (const r of M.done) {
+  const li = document.createElement("li");
+  li.className = "row";
+  li.innerHTML = `<div class="info"><span class="name"></span><span class="meta num">${fmt(r.shops)} shops · ${r.towns} towns · ${r.kb} KB</span></div>
+    <button class="ghost" type="button">Download CSV</button><span class="msg" aria-live="polite"></span>`;
+  li.querySelector(".name").textContent = r.name;
+  li.querySelector("button").addEventListener("click", e => saveOne(r, e.currentTarget, li.querySelector(".msg")));
+  $("done").appendChild(li);
+}
+if (!M.todo.length) $("todoWrap").hidden = true;
+for (const r of M.todo) {
+  const li = document.createElement("li");
+  li.className = "row";
+  const started = r.doneTowns > 0;
+  li.innerHTML = `<div class="info"><span class="name"></span><span class="meta num">${started
+    ? `${r.doneTowns} / ${r.towns} towns · ${fmt(r.shops)} shops so far` : `Queued · ${r.towns} towns`}</span>${started
+    ? `<div class="bar"><i style="width:${Math.round(100 * r.doneTowns / r.towns)}%"></i></div>` : ""}</div>`;
+  li.querySelector(".name").textContent = r.name;
+  $("todo").appendChild(li);
+}
+
+const dlP = (window.claude && window.claude.use) ? window.claude.use("downloads").catch(() => null) : Promise.resolve(null);
+dlP.then(dl => {
+  if (dl) return;
+  $("noDownloads").hidden = false;
+  document.querySelectorAll("button").forEach(b => b.disabled = true);
+});
+
+function explain(err) {
+  const code = err && err.code;
+  if (code === "declined") return "Download cancelled.";
+  if (code === "rate_limited") return "Another save prompt is already open. Finish it, then try again.";
+  if (code === "too_large") return "That file is too big for this app. Try a single region instead.";
+  return "Couldn't save the file here. Open this page in a web browser on claude.ai and try again.";
+}
+
+async function getCsv(r) {
+  const res = await fetch(`data/${r.slug}.csv`);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.blob();
+}
+
+async function saveOne(r, btn, msg) {
+  const dl = await dlP;
+  if (!dl) return;
+  btn.disabled = true; msg.className = "msg"; msg.textContent = "Preparing…";
+  try {
+    const blob = await getCsv(r);
+    await dl.save({ filename: `${r.slug}.csv`, data: blob });
+    msg.textContent = "Saved.";
+  } catch (e) {
+    msg.className = "msg err"; msg.textContent = e && e.code ? explain(e) : "Couldn't load this file. Reload the page and try again.";
+  } finally { btn.disabled = false; }
+}
+
+if (M.master) {
+  $("masterWrap").hidden = false;
+  $("masterMeta").textContent = `${fmt(M.master.shops)} shops in one file · every region plus your earlier city files, duplicates removed ·${fmt(M.master.kb)} KB`;
+  saveMasterBtn();
+}
+function saveMasterBtn() {
+  $("masterBtn").addEventListener("click", () =>
+    saveOne({ slug: "uk-master-independent-shops" }, $("masterBtn"), $("masterMsg")));
+}
+
+$("zipBtn").addEventListener("click", async () => {
+  const dl = await dlP, btn = $("zipBtn"), msg = $("zipMsg");
+  if (!dl) return;
+  btn.disabled = true; msg.className = "msg";
+  try {
+    const zip = new JSZip();
+    let i = 0;
+    for (const r of M.done) {
+      msg.textContent = `Adding ${++i} of ${M.done.length}…`;
+      zip.file(`${r.slug}.csv`, await getCsv(r));
+    }
+    msg.textContent = "Compressing…";
+    const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+    await dl.save({ filename: "uk-independent-shops.zip", data: blob });
+    msg.textContent = `Saved ${M.done.length} CSV files.`;
+  } catch (e) {
+    msg.className = "msg err"; msg.textContent = e && e.code ? explain(e) : "Couldn't build the ZIP. Reload the page and try again.";
+  } finally { btn.disabled = false; }
+});
+</script>
