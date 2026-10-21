@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Independent eating places for a set of councils: FSA hygiene register + Companies House owners + Google Maps.
 
-    python3 scripts/eating_places.py --fsa-dir DIR --ch-dir DIR --maps-dir DIR --out FILE.csv
+    python3 scripts/eating_places.py --fsa-dir DIR --maps-dir DIR --out FILE.csv [--ch-dir DIR]
 
 --fsa-dir   FHRS<code>en-GB.xml files, one per council (https://ratings.food.gov.uk/api/open-data-files/...)
 --ch-dir    food_companies.csv + food_psc.jsonl, the Companies House bulk files cut down to SIC 56xxx
-            (live companies; persons with significant control that have not ceased)
+            (live companies; persons with significant control that have not ceased). Optional: without
+            it the owner/company columns are left out.
 --maps-dir  raw scraper CSVs from scripts/uk_queue.py (output/<run>/raw/<region>/*.csv); optional
 
 The FSA register is the base list. Chains are dropped by name and by the "same name at 4+ sites" rule.
@@ -39,8 +40,8 @@ CHAIN_RX = re.compile(r"(?<![a-z0-9])(?:" + "|".join(re.escape(c) for c in CHAIN
 LEGAL = re.compile(r"\b(ltd|limited|plc|llp|lp|cic|co|company|the|and|t a|t/a|trading as|uk|group|holdings?|"
                    r"enterprises?|services|catering|restaurants?|cafe|takeaway|ventures?)\b")
 PC_RX = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d[A-Z]{2})\b", re.I)
-OUT = ["Business Name", "Category", "Full Address", "Phone", "Website", "Owner/Director Name(s)", "Role",
-       "Company Name", "Company Number", "Match Confidence", "Region"]
+OUT = ["Business Name", "Category", "Full Address", "Phone", "Email", "Website", "Region"]
+OWNER_COLS = ["Owner/Director Name(s)", "Role", "Company Name", "Company Number", "Match Confidence"]
 
 
 def norm(s):
@@ -136,14 +137,14 @@ def load_maps(folder):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--fsa-dir", required=True)
-    ap.add_argument("--ch-dir", required=True)
+    ap.add_argument("--ch-dir")
     ap.add_argument("--maps-dir")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
 
     allrows = load_fsa(a.fsa_dir)
     rows = independents(allrows)
-    by_pc, by_core, owners = load_companies(a.ch_dir)
+    by_pc, by_core, owners = load_companies(a.ch_dir) if a.ch_dir else ({}, {}, {})
     maps = load_maps(a.maps_dir) if a.maps_dir else {}
     stats = collections.Counter()
     out = []
@@ -156,22 +157,27 @@ def main():
         stats["company"] += bool(c)
         stats["owner"] += bool(names)
         stats["maps"] += bool(m)
-        stats["phone"] += bool(m and m.get("phone"))
-        out.append({"Business Name": r["name"], "Category": (m or {}).get("category") or r["type"],
-                    "Full Address": r["addr"], "Phone": (m or {}).get("phone", ""),
-                    "Website": (m or {}).get("website", ""), "Owner/Director Name(s)": "; ".join(names),
-                    "Role": "Owner (PSC)" if names else "", "Company Name": c["name"] if c else "",
-                    "Company Number": c["num"] if c else "", "Match Confidence": conf if c else "",
-                    "Region": r["region"]})
+        m = m or {}
+        email = ", ".join(x for x in re.split(r"[,;\s]+", m.get("emails", "")) if "@" in x)
+        stats["phone"] += bool(m.get("phone"))
+        stats["email"] += bool(email)
+        stats["website"] += bool(m.get("website"))
+        row = {"Business Name": r["name"], "Category": m.get("category") or r["type"], "Full Address": r["addr"],
+               "Phone": m.get("phone", ""), "Email": email, "Website": m.get("website", ""), "Region": r["region"]}
+        if a.ch_dir:
+            row.update({"Owner/Director Name(s)": "; ".join(names), "Role": "Owner (PSC)" if names else "",
+                        "Company Name": c["name"] if c else "", "Company Number": c["num"] if c else "",
+                        "Match Confidence": conf if c else ""})
+        out.append(row)
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     with open(a.out, "w", encoding="utf-8-sig", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=OUT)
+        w = csv.DictWriter(f, fieldnames=OUT[:-1] + OWNER_COLS + OUT[-1:] if a.ch_dir else OUT)
         w.writeheader()
         w.writerows(out)
     n = len(out) or 1
-    print(f"eating places {len(allrows)} · independent {len(out)} · company match {stats['company']} "
-          f"({stats['company'] / n:.0%}) · owner names {stats['owner']} ({stats['owner'] / n:.0%}) · "
-          f"on Maps {stats['maps']} ({stats['maps'] / n:.0%}) · phone {stats['phone']} ({stats['phone'] / n:.0%})")
+    pct = lambda k: f"{k} {stats[k]} ({stats[k] / n:.0%})"
+    print(f"eating places {len(allrows)} · independent {len(out)} · "
+          + " · ".join(pct(k) for k in ["maps", "phone", "email", "website"] + (["owner"] if a.ch_dir else [])))
 
 
 if __name__ == "__main__":
