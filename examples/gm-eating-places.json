@@ -1,0 +1,25 @@
+{
+ "$comment": "Eating-places pilot: Greater Manchester, one district/town per job. Used with scripts/uk_queue.py for the Google Maps raw results only (phone, website, category); the base list and the chain filter come from the FSA register.",
+ "country": "UK",
+ "keywords": [
+  "restaurant in {town}", "cafe in {town}", "takeaway in {town}", "pub in {town}",
+  "bar in {town}", "coffee shop in {town}", "fish and chips in {town}", "pizza takeaway in {town}",
+  "indian restaurant in {town}", "chinese takeaway in {town}", "kebab shop in {town}", "sandwich shop in {town}"
+ ],
+ "regions": [
+  {"slug": "greater-manchester-eating-places", "areas": [
+   "Manchester City Centre", "Ancoats", "Didsbury", "Chorlton-cum-Hardy", "Withington", "Fallowfield", "Rusholme",
+   "Levenshulme", "Longsight", "Gorton", "Moss Side", "Hulme", "Cheetham Hill", "Harpurhey", "Blackley", "Moston",
+   "Newton Heath", "Openshaw", "Wythenshawe", "Northenden", "Burnage",
+   "Salford", "Eccles", "Swinton", "Walkden", "Pendlebury", "Irlam", "Worsley",
+   "Stockport", "Cheadle", "Bramhall", "Hazel Grove", "Marple", "Reddish", "Romiley", "Heaton Moor", "Edgeley",
+   "Oldham", "Chadderton", "Royton", "Shaw, Oldham", "Failsworth", "Uppermill",
+   "Rochdale", "Heywood", "Middleton", "Littleborough", "Milnrow",
+   "Bolton", "Farnworth", "Horwich", "Westhoughton", "Kearsley", "Little Lever",
+   "Bury", "Prestwich", "Radcliffe", "Ramsbottom", "Whitefield", "Tottington",
+   "Wigan", "Leigh", "Ashton-in-Makerfield", "Hindley", "Atherton", "Tyldesley", "Standish", "Golborne", "Orrell",
+   "Altrincham", "Sale", "Stretford", "Urmston", "Partington", "Timperley", "Hale",
+   "Ashton-under-Lyne", "Hyde", "Stalybridge", "Denton", "Droylsden", "Dukinfield", "Mossley"
+  ]}
+ ]
+}
